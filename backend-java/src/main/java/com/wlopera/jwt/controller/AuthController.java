@@ -27,7 +27,6 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public User login(@Valid @RequestBody Login login) {
-		System.out.println("Login: " + login);
 
 		SimpleDateFormat format = new SimpleDateFormat("DD/mm/YYYY HH:mm:ss");
 		String date = format.format(new Date());
@@ -44,7 +43,7 @@ public class AuthController {
 		String secretKey = "mySecretKey";
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");
 
-		System.out.println("usernaqme: " + username);
+		System.out.println("username: " + username);
 		System.out.println("name: " + getMD5("12345"));
 		
 		String token = Jwts.builder().setId("softtekJWT").setSubject(username)

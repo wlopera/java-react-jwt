@@ -21,7 +21,7 @@ instance.interceptors.request.use(function (config) {
   const token = localStorage.getItem("token");
   //console.log("LocalStorage-token", token);
   if (token) {
-    config.headers.Authorization = "Basic " + token;
+    config.headers.Authorization = token;
   }
 
   return config;

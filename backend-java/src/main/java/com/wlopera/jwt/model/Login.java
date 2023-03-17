@@ -26,7 +26,7 @@ public class Login implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Login [" + (username != null ? "Nombre=" + username + ", " : "")
-				+ (password != null ? "Clave=" + password : "") + "]";
+		return "Login [" + (username != null ? "nombre=" + username + ", " : "")
+				+ (password != null ? "clave=" + password : "") + "]";
 	}
 }
