@@ -32,12 +32,12 @@ const Login = () => {
       password: md5(user.password),
     });
 
+
     if (res.data.error) {
       setAlert(res.data.error.message);
     } else {
         console.log(1111, res.data)
       localStorage.setItem("token", res.data.token);
-      window.location.reload();
     }
   };
 

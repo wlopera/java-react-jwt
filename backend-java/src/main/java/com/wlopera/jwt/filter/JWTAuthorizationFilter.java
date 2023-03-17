@@ -38,12 +38,19 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 				}
 			} else {
 				SecurityContextHolder.clearContext();
+				String path = request.getRequestURI();
+				// Se retorna que la peticion no esta autorizada (Falta el token)
+				if (!path.equals("/init") && !path.equals("/login")) {
+					response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+					response.getWriter().write("{\"status\":" + HttpServletResponse.SC_UNAUTHORIZED
+							+ ",\"error\":\"Acceso\",\"message\":\"Acceso prohibido\",\"path\":\"" + path + "\"}");
+					return;
+				}
 			}
 			chain.doFilter(request, response);
 		} catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException e) {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
-			return;
 		}
 	}
 
