@@ -6,10 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import service from "../../service/auth_service";
 
-const Login = () => {
+const Login = (props) => {
   const [user, setUser] = useState({ username: "", password: "" });
   const [alert, setAlert] = useState(null);
   const [shown, setShown] = React.useState(false);
+
+  console.log(12345, props)
 
   const handleInputChange = (event) => {
     const { value, name } = event.target;
@@ -24,7 +26,7 @@ const Login = () => {
   const handeSubmit = async (event) => {
     event.preventDefault();
     setAlert(null);
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
 
     // Primer caracter se convierte a minuscula
     const res = await service.login({
@@ -37,7 +39,8 @@ const Login = () => {
       setAlert(res.data.error.message);
     } else {
         console.log(1111, res.data)
-      localStorage.setItem("token", res.data.token);
+        sessionStorage.setItem("token", res.data.token);
+      props.setOpen(true);
     }
   };
 
