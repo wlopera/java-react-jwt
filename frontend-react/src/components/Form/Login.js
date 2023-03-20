@@ -11,8 +11,6 @@ const Login = (props) => {
   const [alert, setAlert] = useState(null);
   const [shown, setShown] = React.useState(false);
 
-  console.log(12345, props)
-
   const handleInputChange = (event) => {
     const { value, name } = event.target;
 
@@ -40,7 +38,6 @@ const Login = (props) => {
     } else {
         console.log(1111, res.data)
         sessionStorage.setItem("token", res.data.token);
-      props.setOpen(true);
     }
   };
 
