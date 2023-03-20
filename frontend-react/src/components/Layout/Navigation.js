@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import classes from "./Navigation.module.css";
 
 const Navigation = () => {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
 
   console.log(222222222222, token);
   return (
