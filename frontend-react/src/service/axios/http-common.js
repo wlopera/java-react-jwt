@@ -19,7 +19,6 @@ const instance = axios.create({
 // Add a request interceptor
 instance.interceptors.request.use(function (config) {
   const token = sessionStorage.getItem("token");
-  //console.log("sessionStorage-token", token);
   if (token) {
     config.headers.Authorization = token;
   }
