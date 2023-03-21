@@ -40,3 +40,45 @@ React:
 
 ![Captura6](https://user-images.githubusercontent.com/7141537/226058202-5fa073c3-9a6d-47ef-88bb-edafb83fe9ca.PNG)
 
+### Consultar Datos de paises
+
+* Refactor del proceso de navegacion: react-router-dom@6.9.0
+#### index.js
+```
+  ...
+  root.render(
+   <BrowserRouter>
+    <App />
+   </BrowserRouter>
+ );
+ ...
+```
+#### App.js
+```
+  ...
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/countries" element={<Country />} />
+        <Route path="/logout" element={<Logout />} />
+      </Routes>
+    </Layout>
+```
+
+#### Uso de use useNavigate y window reload para redireccionar las llamadas y refrescar la vista
+```
+import { useNavigate  } from "react-router-dom";
+ ...
+   const navigate = useNavigate();
+ ...
+   navigate("/");
+   window.location.reload();
+ ...
+```
+
+![Captura](https://user-images.githubusercontent.com/7141537/226667912-8d47fe9c-c2d6-4dc2-b146-5de032549e40.PNG)
+![Captura1](https://user-images.githubusercontent.com/7141537/226667907-bbfe3665-fb39-4ea8-b077-a98555c6001c.PNG)
+
+
