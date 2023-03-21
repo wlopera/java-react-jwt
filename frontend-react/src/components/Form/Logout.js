@@ -1,12 +1,15 @@
-import React from "react";
+import { useEffect } from "react";
+import { useNavigate  } from "react-router-dom";
 
 const Logout = () => {
-  return (
-    <div>
-      <hi>Ventana de cerrar</hi>
-      <hr />
-    </div>
-  );
+  const navigate = useNavigate();
+  useEffect(() => {
+    sessionStorage.removeItem("token");
+    navigate("/");
+    window.location.reload();
+  }, []);
+
+  return null;
 };
 
 export default Logout;

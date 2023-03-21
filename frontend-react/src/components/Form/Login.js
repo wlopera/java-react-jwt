@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate  } from "react-router-dom";
 import md5 from "md5";
 
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -10,6 +11,8 @@ const Login = (props) => {
   const [user, setUser] = useState({ username: "", password: "" });
   const [alert, setAlert] = useState(null);
   const [shown, setShown] = React.useState(false);
+
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { value, name } = event.target;
@@ -36,8 +39,9 @@ const Login = (props) => {
     if (res.data.error) {
       setAlert(res.data.error.message);
     } else {
-        console.log(1111, res.data)
         sessionStorage.setItem("token", res.data.token);
+        navigate("/");
+        window.location.reload();
     }
   };
 
