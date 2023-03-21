@@ -4,9 +4,9 @@ import { NavLink } from "react-router-dom";
 import classes from "./Navigation.module.css";
 
 const Navigation = () => {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
+  console.log(111111111111111, token)
 
-  console.log(222222222222, token);
   return (
     <nav
       className="navbar navbar-expand-lg navbar-light bg-custom-secondary"
@@ -30,21 +30,21 @@ const Navigation = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <nav className={classes.nav}>
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            {!token && (
               <li className="nav-item">
                 <NavLink
-                  to="/login"
-                  activeClassName={classes.active}
-                  className="nav-link"
+                  to="/login"                  
+                  className={(navData) => (navData.isActive ? classes.active : "nav-link")}
                 >
                   Conectarse
                 </NavLink>
               </li>
+              )}
               {token && (
                 <li className="nav-item">
                   <NavLink
                     to="/countries"
-                    activeClassName={classes.active}
-                    className="nav-link"
+                    className={(navData) => (navData.isActive ? classes.active : "nav-link")}
                   >
                     Países
                   </NavLink>
@@ -54,8 +54,7 @@ const Navigation = () => {
                 <li className="nav-item">
                   <NavLink
                     to="/logout"
-                    activeClassName={classes.active}
-                    className="nav-link"
+                    className={(navData) => (navData.isActive ? classes.active : "nav-link")}
                   >
                     Salir
                   </NavLink>

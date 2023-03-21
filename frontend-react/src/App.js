@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import Home from "./components/Form/Home";
 import Layout from "./components/Layout/Layout";
@@ -10,23 +10,13 @@ import Country from "./components/Form/Country";
 function App() {
   return (
     <Layout>
-      <Switch>
-        <Route path="/" exact>
-          <Redirect to="home" />
-        </Route>
-        <Route path="/home">
-          <Home />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/countries">
-          <Country />
-        </Route>
-        <Route path="/logout">
-          <Logout />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/countries" element={<Country />} />
+        <Route path="/logout" element={<Logout />} />
+      </Routes>
     </Layout>
   );
 }

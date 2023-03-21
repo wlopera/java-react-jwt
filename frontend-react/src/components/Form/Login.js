@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate  } from "react-router-dom";
 import md5 from "md5";
 
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -6,10 +7,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import service from "../../service/auth_service";
 
-const Login = () => {
+const Login = (props) => {
   const [user, setUser] = useState({ username: "", password: "" });
   const [alert, setAlert] = useState(null);
   const [shown, setShown] = React.useState(false);
+
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { value, name } = event.target;
@@ -24,7 +27,7 @@ const Login = () => {
   const handeSubmit = async (event) => {
     event.preventDefault();
     setAlert(null);
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
 
     // Primer caracter se convierte a minuscula
     const res = await service.login({
@@ -36,8 +39,9 @@ const Login = () => {
     if (res.data.error) {
       setAlert(res.data.error.message);
     } else {
-        console.log(1111, res.data)
-      localStorage.setItem("token", res.data.token);
+        sessionStorage.setItem("token", res.data.token);
+        navigate("/");
+        window.location.reload();
     }
   };
 
