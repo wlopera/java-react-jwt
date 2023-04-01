@@ -18,8 +18,6 @@ const Country = () => {
     loadData();
   }, []);
 
-  console.log(12345, countries);
-
   return (
     <div>
       {countries && (
