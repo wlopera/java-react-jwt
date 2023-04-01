@@ -1,23 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Home from "./components/Form/Home";
-import Layout from "./components/Layout/Layout";
 import Login from "./components/Form/Login";
 import Logout from "./components/Form/Logout";
 import Country from "./components/Form/Country";
+import { AuthContext } from "./context/AuthProvider";
+import NavigationPrivate from "./components/Layout/NavigationPrivate";
+import NavigationPublic from "./components/Layout/NavigationPublic";
 
 function App() {
+  const  {auth}  = useContext(AuthContext);
+
+  console.log("##=> AUTH - APP", auth);
+
   return (
-    <Layout>
+    <>
+      {auth ? <NavigationPrivate /> : <NavigationPublic />}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/countries" element={<Country />} />
         <Route path="/logout" element={<Logout />} />
       </Routes>
-    </Layout>
+    </>
   );
 }
 

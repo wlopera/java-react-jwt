@@ -39,6 +39,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 			} else {
 				SecurityContextHolder.clearContext();
 				String path = request.getRequestURI();
+				System.out.println("##==> path: " + path);
 				// Se retorna que la peticion no esta autorizada (Falta el token)
 				if (!path.equals("/init") && !path.equals("/login")) {
 					response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

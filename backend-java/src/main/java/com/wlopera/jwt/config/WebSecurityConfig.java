@@ -12,12 +12,16 @@ import com.wlopera.jwt.filter.JWTAuthorizationFilter;
 @EnableWebSecurity
 @Configuration
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests().antMatchers(HttpMethod.GET, "/init").permitAll()
+				.antMatchers("/").permitAll()
 				.antMatchers("/login").permitAll()
-				.anyRequest().authenticated();
+				.anyRequest().authenticated();		
+        http.headers().frameOptions().disable();
+        http.headers().frameOptions().sameOrigin();        
 	}
 }

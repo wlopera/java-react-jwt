@@ -1,16 +1,19 @@
-import React, { useState } from "react";
-import { useNavigate  } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import md5 from "md5";
 
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import service from "../../service/auth_service";
+import { AuthContext } from "../../context/AuthProvider";
 
-const Login = (props) => {
+const Login = () => {
   const [user, setUser] = useState({ username: "", password: "" });
   const [alert, setAlert] = useState(null);
   const [shown, setShown] = React.useState(false);
+
+  const { setAuth } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -29,19 +32,23 @@ const Login = (props) => {
     setAlert(null);
     sessionStorage.removeItem("token");
 
+    console.log("##==> Usuario: ", user);
+
     // Primer caracter se convierte a minuscula
     const res = await service.login({
       username: user.username.charAt(0).toLowerCase() + user.username.slice(1),
       password: md5(user.password),
     });
 
+    console.log("##==> Respuesta: ", res);
 
     if (res.data.error) {
+      setAuth(false);
       setAlert(res.data.error.message);
     } else {
-        sessionStorage.setItem("token", res.data.token);
-        navigate("/");
-        window.location.reload();
+      setAuth(true);
+      sessionStorage.setItem("token", res.data.data.token);
+      navigate("/home");
     }
   };
 
